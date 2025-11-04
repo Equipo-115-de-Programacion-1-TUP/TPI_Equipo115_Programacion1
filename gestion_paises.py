@@ -34,7 +34,8 @@ def mostrar_menu():
     print("3. Filtrar por continente")
     print("4. Mostrar estadísticas")
     print("5. Ordenar países")
-    print("6. Salir")
+    print("6. Agregar un pais")
+    print("7. Salir")
     opcion = input("Seleccione una opción: ")
     return opcion
 
@@ -74,6 +75,83 @@ def buscar_pais(paises):
     else:
         print("❌ No se encontraron coincidencias.")
 
+#Funcion para añadir un paies
+def agregar_pais(lista_paises):
+    print("="*10,"Agregar un pais","="*10)
+    while True:
+        nombre_str = input("Ingrese el nombre de pais a agregar: ").strip()
+
+        if nombre_str.isdigit():
+            print("❌ Error: Ingrese un nombre de país válido (formato texto).")
+            continue
+        if nombre_str=="":
+            print("❌ Error: Ingrese un nombre de país válido (no vacío).")
+            continue
+        print(f"Nombre de pais guardado: {nombre_str}")
+        break
+
+    while True:   
+        poblacion_str = input("Ingrese la cantidad de población del nuevo pais a agregar: ").strip()
+        
+        if not poblacion_str.isdigit():
+            print("❌ Error: Ingrese un valor de población válido (formato numérico).")
+            continue
+        if poblacion_str=="":
+            print("❌ Error: Ingrese un valor de población válido (no vacío).")
+            continue
+        print(f"Población de pais guardado: {poblacion_str} habitantes.")
+        break
+
+    while True:   
+        superficie_str = input("Ingrese la superficie del nuevo pais a agregar: ").strip()
+        
+        if not superficie_str.isdigit():
+            print("❌ Error: Ingrese un valor de superficie válido (formato numérico).")
+            continue
+        if superficie_str=="":
+            print("❌ Error: Ingrese un valor de superficie válido (no vacío).")
+            continue
+        print(f"Superficie de pais guardado: {superficie_str}")
+        break
+
+    while True:
+        print("Va a seleccionar el continente al que pertenece el nuev país a agregar.")   
+        print("1. Asia")
+        print("2. África")
+        print("3. Europa")
+        print("4. América")
+        print("5. Oceanía")
+        print("6. Antártida")
+        continente_str = input("Seleccione el continente al que pertenece nuevo pais a agregar: ").strip()
+        
+        if not continente_str.isdigit():
+            print("❌ Error: Ingrese un valor válido (fromato númerico).")
+            continue
+        if continente_str=="":
+            print("❌ Error: Ingrese un valor de continente válido (no vacío).")
+            continue
+        match continente_str:
+            case "1":
+                continente_str = "Asia"
+                print(f"Continente de pais guardado: {continente_str}")
+            case "2":
+                continente_str = "África"
+                print(f"Continente de pais guardado: {continente_str}")
+            case "3":
+                continente_str = "Europa"
+                print(f"Continente de pais guardado: {continente_str}")
+            case "4":
+                continente_str = "América"
+                print(f"Continente de pais guardado: {continente_str}")
+            case "5":
+                continente_str = "Oceanía"
+                print(f"Continente de pais guardado: {continente_str}")
+            case "6":
+                continente_str = "Antártida"
+                print(f"Continente de pais guardado: {continente_str}")
+            case _:
+                print("❌ Error: Seleccione alguna de las opciones del menú de continentes.")
+        break
 
 # ==========================
 #  FUNCIÓN PRINCIPAL
@@ -97,6 +175,8 @@ def main():
         elif opcion == "5":
             ordenar_paises(paises)
         elif opcion == "6":
+            agregar_pais(paises)
+        elif opcion == "7":
             print("👋 Saliendo del programa. ¡Hasta luego!")
             break
         else:
