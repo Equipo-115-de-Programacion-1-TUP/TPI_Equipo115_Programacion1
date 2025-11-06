@@ -75,9 +75,26 @@ def buscar_pais(paises):
     else:
         print("❌ No se encontraron coincidencias.")
 
+#Función para guardar datos en el CSV
+def guardar_datos_pais(nombre_archivo, lista_paises):
+    try:
+        with open(nombre_archivo, 'w', newline='', encoding='utf-8') as archivo:
+            campos = ["nombre", "poblacion", "superficie", "continente"]
+            escritor = csv.DictWriter(archivo, fieldnames=campos)
+            escritor.writeheader()
+
+            for pais in lista_paises:
+                escritor.writerow(pais)
+        return True
+    except Exception as e:
+        print(f"❌ Error al guardar el archivo: {e}")
+        return False
+    
 #Funcion para añadir un paies
 def agregar_pais(lista_paises):
+    #Agrega un nuevo país a la lista y lo guarda en el archivo CSV."""
     print("="*10,"Agregar un pais","="*10)
+    # Validación y asignación del nombre
     while True:
         nombre_str = input("Ingrese el nombre de pais a agregar: ").strip()
 
@@ -89,7 +106,8 @@ def agregar_pais(lista_paises):
             continue
         print(f"Nombre de pais guardado: {nombre_str}")
         break
-
+    
+    # Validación y asignación de población   
     while True:   
         poblacion_str = input("Ingrese la cantidad de población del nuevo pais a agregar: ").strip()
         
@@ -99,11 +117,16 @@ def agregar_pais(lista_paises):
         if poblacion_str=="":
             print("❌ Error: Ingrese un valor de población válido (no vacío).")
             continue
-        print(f"Población de pais guardado: {poblacion_str} habitantes.")
+        poblacion_int=int(poblacion_str)
+        if poblacion_int <= 0:
+            print("❌ Error: La población debe ser mayor a 0.")
+            continue
+        print(f"Población de pais guardado: {poblacion_int} habitantes.")
         break
 
+    # Validación y asignación de superficie
     while True:   
-        superficie_str = input("Ingrese la superficie del nuevo pais a agregar: ").strip()
+        superficie_str = input("Ingrese la superficie (km²) del nuevo pais a agregar: ").strip()
         
         if not superficie_str.isdigit():
             print("❌ Error: Ingrese un valor de superficie válido (formato numérico).")
@@ -111,9 +134,14 @@ def agregar_pais(lista_paises):
         if superficie_str=="":
             print("❌ Error: Ingrese un valor de superficie válido (no vacío).")
             continue
-        print(f"Superficie de pais guardado: {superficie_str}")
+        superficie_int = int(superficie_str)
+        if superficie_int <= 0:
+            print("❌ Error: La superficie debe ser mayor a 0.")
+            continue
+        print(f"Superficie de pais guardado: {superficie_int}")
         break
-
+   
+    # Validación y asignación de superficie
     while True:
         print("Va a seleccionar el continente al que pertenece el nuev país a agregar.")   
         print("1. Asia")
@@ -125,7 +153,7 @@ def agregar_pais(lista_paises):
         continente_str = input("Seleccione el continente al que pertenece nuevo pais a agregar: ").strip()
         
         if not continente_str.isdigit():
-            print("❌ Error: Ingrese un valor válido (fromato númerico).")
+            print("❌ Error: Ingrese un valor válido (formato númerico).")
             continue
         if continente_str=="":
             print("❌ Error: Ingrese un valor de continente válido (no vacío).")
@@ -152,6 +180,36 @@ def agregar_pais(lista_paises):
             case _:
                 print("❌ Error: Seleccione alguna de las opciones del menú de continentes.")
         break
+    
+    # Crear el nuevo país
+    nuevo_pais = {
+        "nombre": nombre_str,
+        "poblacion": poblacion_int,
+        "superficie": superficie_int,
+        "continente": continente_str
+    }
+
+    # Agregar a la lista
+    lista_paises.append(nuevo_pais)
+
+    # Guardar en el archivo CSV
+    if guardar_datos_pais("paises.csv", lista_paises):
+        print(f"\n✅ País '{nombre_str}' agregado exitosamente.")
+    else:
+        print(f"\n⚠️ El país se agregó a la lista pero hubo un error al guardar en el archivo.")
+
+#Funcion a desarrollar
+def filtrar_por_continente(lista_paises):
+    pass
+
+#Funcion a desarrollar
+def mostrar_estadisticas(lista_paises):
+    pass
+
+#Funcion a desarrollar
+def ordenar_paises(lista_paises):
+    pass
+
 
 # ==========================
 #  FUNCIÓN PRINCIPAL
