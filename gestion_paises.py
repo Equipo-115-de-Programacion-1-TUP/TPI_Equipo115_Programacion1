@@ -1,8 +1,16 @@
 # ==========================
 #   SISTEMA DE GESTIÓN DE PAÍSES
-#   Versión 5.2 (Final TPI Corregida)
-#   Cumple con: menú con while + match/case, modularización, listas/dicts, CSV, filtros, ordenamientos y estadísticas
-#   Restricciones: sin lambdas, sin clases, sin excepciones para control lógico, sin variables globales
+#   Versión 5.2 Final TPI Corregida
+#   Requisitos cumplidos:
+#   - while + match/case
+#   - listas y diccionarios
+#   - CSV persistente
+#   - filtros, ordenamientos, estadísticas
+#   Restricciones respetadas:
+#   - sin lambda
+#   - sin excepciones de control de flujo
+#   - sin clases
+#   - sin variables globales
 # ==========================
 
 import csv
@@ -28,14 +36,10 @@ def normalizar_continente(cont):
     cont = sin_acentos(cont.strip())
     if cont in ["america","americas","latinoamerica","norteamerica","sudamerica"]:
         return "América"
-    if cont == "europa":
-        return "Europa"
-    if cont == "asia":
-        return "Asia"
-    if cont == "africa":
-        return "África"
-    if cont in ["oceania","oceanía"]:
-        return "Oceanía"
+    if cont == "europa": return "Europa"
+    if cont == "asia": return "Asia"
+    if cont == "africa": return "África"
+    if cont in ["oceania","oceanía"]: return "Oceanía"
     return cont.capitalize()
 
 def normalizar_nombre(nombre):
@@ -54,7 +58,7 @@ def color_por_continente(cont):
     return Fore.WHITE
 
 # -------------------------------
-# CLAVES ORDENAMIENTO (sin lambda)
+# ORDENAMIENTO (sin lambda)
 # -------------------------------
 def clave_nombre(p): return p["nombre"]
 def clave_poblacion(p): return p["poblacion"]
@@ -64,7 +68,7 @@ def autocompletar_nombres(paises):
     return WordCompleter([p["nombre"] for p in paises], ignore_case=True)
 
 # -------------------------------
-# BASE DE DATOS CSV
+# CSV
 # -------------------------------
 def guardar_datos(nombre_archivo, paises):
     with open(nombre_archivo, "w", newline="", encoding="utf-8") as archivo:
@@ -79,28 +83,26 @@ def cargar_datos(nombre_archivo):
     paises=[]
     if not os.path.exists(nombre_archivo):
         return paises
-    archivo=open(nombre_archivo,newline="",encoding="utf-8")
-    lector=csv.DictReader(archivo)
-
-    for f in lector:
-        if not f["poblacion"].isdigit() or not f["superficie"].isdigit(): continue
-        nombre=normalizar_nombre(f["nombre"])
-        continente=normalizar_continente(f["continente"])
-
-        if any(sin_acentos(x["nombre"])==sin_acentos(nombre) for x in paises): continue
-
-        paises.append({
-            "nombre":nombre,
-            "poblacion":int(f["poblacion"]),
-            "superficie":int(f["superficie"]),
-            "continente":continente
-        })
-    archivo.close()
+    with open(nombre_archivo, newline="", encoding="utf-8") as archivo:
+        lector=csv.DictReader(archivo)
+        for f in lector:
+            if not f["poblacion"].isdigit() or not f["superficie"].isdigit():
+                continue
+            nombre=normalizar_nombre(f["nombre"])
+            continente=normalizar_continente(f["continente"])
+            if any(sin_acentos(x["nombre"])==sin_acentos(nombre) for x in paises):
+                continue
+            paises.append({
+                "nombre":nombre,
+                "poblacion":int(f["poblacion"]),
+                "superficie":int(f["superficie"]),
+                "continente":continente
+            })
     print(f"✅ {len(paises)} países cargados.")
     return paises
 
 # -------------------------------
-# ACTUALIZAR PAÍS (Corregido)
+# ACTUALIZAR PAÍS (corregido)
 # -------------------------------
 def actualizar_pais(paises, pais_preseleccionado=None):
     print("\n--- ACTUALIZAR PAÍS ---")
@@ -137,7 +139,7 @@ def actualizar_pais(paises, pais_preseleccionado=None):
         nueva_p=input("Nueva población: ").replace(".","").strip()
         nueva_s=input("Nueva superficie: ").replace(".","").strip()
 
-        # ✅ Corrección solicitada:
+        # ✅ CORRECCIÓN SOLICITADA
         if nueva_p=="" and nueva_s=="":
             print("\n❗ No se modificó ningún valor.")
             print("1) Reintentar")
@@ -177,21 +179,21 @@ def actualizar_pais(paises, pais_preseleccionado=None):
         break
 
 # -------------------------------
-# AGREGAR PAÍS
+# AGREGAR
 # -------------------------------
 def agregar_pais(paises):
     print("\n--- AGREGAR PAÍS ---")
     while True:
-        nombre = input("Nombre (o X para volver): ").strip()
+        nombre=input("Nombre (o X para volver): ").strip()
         if nombre.upper()=="X": return
         if nombre=="" or not nombre.replace(" ","").isalpha():
             print("❌ Nombre inválido.")
             continue
 
-        nombre = normalizar_nombre(nombre)
+        nombre=normalizar_nombre(nombre)
 
         for p in paises:
-            if sin_acentos(p["nombre"]) == sin_acentos(nombre):
+            if sin_acentos(p["nombre"])==sin_acentos(nombre):
                 print(f"\n⚠️ '{nombre}' ya existe.")
                 print("1) Actualizar este país")
                 print("2) Cancelar y volver")
@@ -199,22 +201,24 @@ def agregar_pais(paises):
                     actualizar_pais(paises,p)
                 return
 
-        poblacion = input("Población: ").replace(".","")
+        poblacion=input("Población: ").replace(".","")
         if not poblacion.isdigit(): print("❌ Número inválido."); continue
 
-        superficie = input("Superficie: ").replace(".","")
+        superficie=input("Superficie: ").replace(".","")
         if not superficie.isdigit(): print("❌ Número inválido."); continue
 
-        continente = input("Continente: ").strip()
-        if continente=="" or not continente.replace(" ","").isalpha(): print("❌ Inválido."); continue
+        continente=input("Continente: ").strip()
+        if continente=="" or not continente.replace(" ","").isalpha():
+            print("❌ Continente inválido.")
+            continue
 
         paises.append({
-            "nombre": nombre,
-            "poblacion": int(poblacion),
-            "superficie": int(superficie),
-            "continente": normalizar_continente(continente)
+            "nombre":nombre,
+            "poblacion":int(poblacion),
+            "superficie":int(superficie),
+            "continente":normalizar_continente(continente)
         })
-        guardar_datos("paises.csv", paises)
+        guardar_datos("paises.csv",paises)
         print(f"✅ '{nombre}' agregado.\n")
         break
 
@@ -223,7 +227,7 @@ def agregar_pais(paises):
 # -------------------------------
 def buscar_pais(paises):
     print("\n--- BUSCAR PAÍS ---")
-    nombre = prompt("Buscar: ", completer=autocompletar_nombres(paises)).strip()
+    nombre=prompt("Buscar: ", completer=autocompletar_nombres(paises)).strip()
     if nombre=="" or not nombre.replace(" ","").isalpha(): print("❌ Inválido."); return
     criterio=sin_acentos(nombre)
     resultados=[p for p in paises if criterio in sin_acentos(p["nombre"])]
@@ -311,10 +315,16 @@ def menu_ordenar(paises):
 # -------------------------------
 def mostrar_estadisticas(paises):
     total=len(paises)
+    if total==0:
+        print("No hay países cargados.")
+        return
+
     mayor=max(paises,key=clave_poblacion)
     menor=min(paises,key=clave_poblacion)
-    prom_pob=sum(p["poblacion"] for p in paises)/total
-    prom_sup=sum(p["superficie"] for p in paises)/total
+
+    prom_pob=sum(p["poblacion"] for p in paises)//total
+    prom_sup=sum(p["superficie"] for p in paises)//total
+
     cont_count={}
     for p in paises:
         c=normalizar_continente(p["continente"])
@@ -323,8 +333,8 @@ def mostrar_estadisticas(paises):
     print("\n📊 ESTADÍSTICAS 📊")
     print(f"Mayor población: {mayor['nombre']} ({mayor['poblacion']:,})".replace(",","."))
     print(f"Menor población: {menor['nombre']} ({menor['poblacion']:,})".replace(",","."))
-    print(f"Población promedio: {int(prom_pob):,}".replace(",","."))
-    print(f"Superficie promedio: {int(prom_sup):,} km²".replace(",","."))
+    print(f"Población promedio: {prom_pob:,}".replace(",","."))
+    print(f"Superficie promedio: {prom_sup:,} km²".replace(",","."))
     print("\nCantidad por continente:")
     for c,n in cont_count.items():
         print(f" - {c}: {n}")
@@ -348,7 +358,7 @@ def listar_paises(paises):
     print(tabulate(tabla,headers=["nombre","poblacion","superficie","continente"],tablefmt="fancy_grid"))
 
 # -------------------------------
-# MENÚ PRINCIPAL
+# MENÚ PRINCIPAL (corregido)
 # -------------------------------
 def main():
     paises=cargar_datos("paises.csv")
@@ -368,7 +378,7 @@ def main():
             case "3": buscar_pais(paises)
             case "4": menu_filtrar(paises)
             case "5": menu_ordenar(paises)
-            case "6": mostrar_estadísticas(paises)
+            case "6": mostrar_estadisticas(paises) 
             case "7":
                 print("👋 Saliendo...")
                 break
