@@ -1,0 +1,6 @@
+{
+    "editor.find.cursorMoveOnType": false,
+    "workbench.settings.openDefaultKeybindings": false,
+    "terminal.integrated.sendKeybindingsToShell": false,
+    "accessibility.verbosity.keybindingsEditor": false
+}
