@@ -25,7 +25,7 @@ El desarrollo se enfocó en la **modularidad**, la **robustez** del código y el
 
 | Nombre Completo | Comisión | Email de Contacto |
 | :--- | :--- | :--- |
-| **Cesar Luciano Angeleri** | Comisión 1 | icnang@gmail.com |
+| **Cesar Luciano Angeleri** | Comisión 1 | lcnang@gmail.com |
 | **Ronar Salazar Suzeta** | Comisión 3 | ronar76@gmail.com |
 
 #### 👨‍🏫 Cuerpo Docente
