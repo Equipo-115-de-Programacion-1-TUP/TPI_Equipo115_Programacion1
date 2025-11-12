@@ -140,5 +140,5 @@ El programa ofrece un menú interactivo. A continuación, se detalla la funciona
 | Recurso | Enlace |
 | :--- | :--- |
 | **Repositorio GitHub** | `https://github.com/Equipo-115-de-Programacion-1-TUP/TPI_Equipo115_Programacion1.git` |
-| **Video Tutorial y Exposición** | [Enlace al video de YouTube NO LISTADO] |
+| **Video Tutorial y Exposición** | [Video](https://www.canva.com/design/DAG4cV4sJ8k/9Mk4FK2FITZz-Tz-IwQztg/watch?utm_content=DAG4cV4sJ8k&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h20b225e87e) |
 | **Documento del TPI (PDF)**| `Trabajo Práctico Integrador Programación 1 - César Luciano Angeleri - Ronar Salazar Suzeta.pdf` |
