@@ -25,7 +25,7 @@ El desarrollo se enfocó en la **modularidad**, la **robustez** del código y el
 
 | Nombre Completo | Comisión | Email de Contacto |
 | :--- | :--- | :--- |
-| **Cesar Luciano Angeleri** | Comisión 1 | icnang@gmail.com |
+| **Cesar Luciano Angeleri** | Comisión 1 | lcnang@gmail.com |
 | **Ronar Salazar Suzeta** | Comisión 3 | ronar76@gmail.com |
 
 #### 👨‍🏫 Cuerpo Docente
@@ -140,5 +140,5 @@ El programa ofrece un menú interactivo. A continuación, se detalla la funciona
 | Recurso | Enlace |
 | :--- | :--- |
 | **Repositorio GitHub** | `https://github.com/Equipo-115-de-Programacion-1-TUP/TPI_Equipo115_Programacion1.git` |
-| **Video Tutorial y Exposición** | [Enlace al video de YouTube NO LISTADO] |
-| **Documento del TPI (PDF)**| `Trabajo Práctico Integrador Programación 1 - César Luciano Angeleri - Ronar Salazar Suzeta.pdf` |
+| **Video Tutorial y Exposición** | [Video](https://www.canva.com/design/DAG4cV4sJ8k/9Mk4FK2FITZz-Tz-IwQztg/watch?utm_content=DAG4cV4sJ8k&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h20b225e87e) |
+| **Documento del TPI (PDF)**| [Ver Documento](https://docs.google.com/document/d/1pQ3xIWjH0VXJpW2GyazQZjNliQz0t008V0RZzYK25E8/edit?usp=sharing) |
